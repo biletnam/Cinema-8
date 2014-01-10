@@ -1,0 +1,14 @@
+{{ formset.management_form }}
+<table>
+{% for form in formset %}
+    <tr>{% for field in form %}
+    	<td>
+	    	{% if field.label_tag == "Id:" %}	
+	    		{{field.as_hidden}} aaaaa
+	    	{% else %}
+	        	{{ field.label_tag }} {{ field }}
+	        	{{ field.errors }}
+	        {% endif %}
+	    </td>
+    {% endfor %}</tr>
+{% endfor %}</table>

@@ -1,0 +1,11 @@
+{% if pages %}
+    <ul>
+    {% for k, v in pages.iteritems %}
+        <li><a href="{% url v %}">{{ k }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No pages are available.</p>
+{% endif %}
+
+<a href="{% url 'logout_page' %}">logout</a>

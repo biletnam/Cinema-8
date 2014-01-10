@@ -7,7 +7,7 @@ create user 'pracownik'@'localhost' identified by 'pracownik';
 create user 'db_admin'@'localhost' identified by 'admin';
 
 
-#Granty
+#Uprawnienia
 
 grant ALL on kino.* to db_admin
 	with grant option;

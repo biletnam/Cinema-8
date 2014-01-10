@@ -1,0 +1,38 @@
+<table id="reservation_table">
+	<tr>
+		<td>reservation number: </td>
+		<td>{{reservation.id}}</td>
+	</tr>
+	<tr>
+		<td>Name: </td>
+		<td>{{reservation.client}}</td>
+	</tr>
+	<tr>
+		<td>email: </td>
+		<td>{{reservation.client.email}}</td>
+	</tr>
+	<tr>
+		<td>phone: </td>
+		<td>{{reservation.client.phone}}</td>
+	</tr>
+	<tr>
+		<td>movie: </td>
+		<td>{{reservation.projection.movie}}</td>
+	</tr>
+	<tr>
+		<td>room: </td>
+		<td>{{reservation.projection.room}}</td>
+	</tr>
+	<tr>
+		<td>seat: </td>
+		<td>{{reservation.seat_number}}</td>
+	</tr>
+	<tr>
+		<td>ticket price: </td>
+		<td>{{reservation.projection.ticket_price}}</td>
+	</tr>
+</table>
+<form action="" method="post">{% csrf_token %}
+	{% include "employee_app/form.html"  with form=reservationForm %}
+	<p><input type="submit" value="Ok" /></p>
+</form>

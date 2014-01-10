@@ -1,0 +1,13 @@
+{% if id > 0 %}
+	<form action={% url 'edit_movie' id %} method="post">{% csrf_token %}
+		{{movie}}
+
+{% else %}
+	<form action={% url 'add_movie' %} method="post">{% csrf_token %}
+		
+{% endif %}
+		{% include "employee_app/form.html"  with form=movieForm %}
+		<p>Projections:</p>
+		{% include "employee_app/formset.html"  with formset=projectionsForms %}
+    	<p><input type="submit" value="Save" /></p>
+	</form>

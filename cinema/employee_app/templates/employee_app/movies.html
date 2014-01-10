@@ -1,0 +1,18 @@
+{% if movies_list %}
+    <table>
+    {% for m in movies_list %}
+        <tr>
+            <td><a href="{% url 'edit_movie' m.id %}">{{ m.title }}</a></td>
+            <td>{{m.length}}</td>
+            <td>{{m.genre}}</td>
+            <td>{{m.minimal_age}}</td>
+            <td>{{m.audio_language}}</td>
+            <td>{{m.subtitles_language}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No movies are available.</p>
+{% endif %}
+
+<p><a href="{% url 'add_movie' %}">Add film</a></p>

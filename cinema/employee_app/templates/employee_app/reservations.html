@@ -1,0 +1,12 @@
+{% if reservations_list %}
+    <table>
+    {% for r in reservations_list %}
+        <tr>
+            <td><a href="{% url 'view_reservation' r.id %}">{{ r.id }}</a></td>
+            <td>{{r.client}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No reservations are available.</p>
+{% endif %}

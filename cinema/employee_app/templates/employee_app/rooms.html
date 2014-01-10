@@ -1,0 +1,15 @@
+{% if rooms_list %}
+    <table>
+    {% for r in rooms_list %}  
+        <tr>
+            <td><a href="{% url 'edit_room' r.room_number %}"> room {{r.room_number}}</a></td>
+            <td>{{r.seats_number}}</td>
+            <td>{{r.status}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No rooms are available.</p>
+{% endif %}
+
+<p><a href="{% url 'add_room' %}">Add room</a></p>
