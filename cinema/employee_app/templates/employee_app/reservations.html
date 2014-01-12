@@ -1,4 +1,11 @@
+
 {% if reservations_list %}
+
+	<form action="" method="post">{% csrf_token %}
+		{% include "employee_app/form.html"  with form=searchForm %}
+		<input type="submit" value="Go" />
+	</form>
+
     <table>
     {% for r in reservations_list %}
         <tr>
@@ -8,5 +15,6 @@
     {% endfor %}
     </table>
 {% else %}
-    <p>No reservations are available.</p>
+    <div>No reservations are available.</div>
 {% endif %}
+

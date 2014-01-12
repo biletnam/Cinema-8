@@ -33,6 +33,7 @@
 	</tr>
 </table>
 <form action="" method="post">{% csrf_token %}
-	{% include "employee_app/form.html"  with form=reservationForm %}
-	<p><input type="submit" value="Ok" /></p>
+	<div>{% include "employee_app/form.html"  with form=reservationForm %}
+	<input type="submit" value="Ok" /></div>
 </form>
+

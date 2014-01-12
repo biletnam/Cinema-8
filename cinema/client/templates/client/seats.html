@@ -1,0 +1,14 @@
+	<form action="" method="post">{% csrf_token %}
+	<div>	
+		{% include "client/form.html" with form=form %}
+
+			<label for="seats_num">Seats numbers</label>
+			<select id="seats_nums" name="seats_nums" multiple="multiple">
+			{% for c in choices %}
+				<option value="{{c}}">{{c}}</option>
+			{% endfor %}
+		
+
+    	<input type="submit" value="Save" />
+    	{{error_message}}</div>
+	</form>

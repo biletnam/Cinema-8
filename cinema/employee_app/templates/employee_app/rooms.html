@@ -9,7 +9,8 @@
     {% endfor %}
     </table>
 {% else %}
-    <p>No rooms are available.</p>
+    <div>No rooms are available.</div>
 {% endif %}
 
-<p><a href="{% url 'add_room' %}">Add room</a></p>
+<div><a href="{% url 'add_room' %}">Add room</a></div>
+

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext, loader
 from employee_app.models import *
 from django.http import HttpResponse, HttpResponseRedirect
@@ -6,8 +6,10 @@ from django import forms
 from django.forms import ModelForm, BooleanField
 from django.forms.models import modelform_factory, modelformset_factory
 from django.db import transaction
+from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 
 def login_page(request):
     if request.method == 'POST':
@@ -75,6 +77,9 @@ def edit_movie(request, movie_id):
         movieForm = MovieFormEdit(instance = Movie.objects.get(pk=movie_id))
         projectionsForms = ProjectionsFormSet(queryset=Projection.objects.filter(movie_id=movie_id))
 
+    for k,v in movieForm.fields.iteritems():
+        v.widget.attrs['readonly'] = True
+    
     return render(request, 'employee_app/edit_movie.html', RequestContext(request, {'movieForm':movieForm, 'id':movie_id, 'projectionsForms':projectionsForms, 'movie':movie}))
 
 
@@ -114,7 +119,6 @@ def rooms(request):
 
 @login_required(redirect_field_name='/employee/login/')
 def edit_room(request, room_id):
-    
     if request.method == 'POST':
         roomForm = RoomFormEdit(request.POST)
 
@@ -159,10 +163,27 @@ def add_room(request):
 
 
 @login_required(redirect_field_name='/employee/login/')
-def reservations(request):
-    reservations_list = Reservation.objects.all()
-    context = {'reservations_list':reservations_list}
-    return render(request, 'employee_app/reservations.html', context)
+def reservations(request): 
+    if request.method == 'POST':
+        searchForm = SearchForm(request.POST)
+
+        if searchForm.is_valid():
+            try:
+                resId = int(searchForm.cleaned_data['search'])
+                try:
+                    r = Reservation.objects.get(pk=resId)
+                    return HttpResponseRedirect(reverse('view_reservation', kwargs={'id':str(resId)}))
+                except Reservation.DoesNotExist:
+                    reservations_list = Reservation.objects.all()
+            except ValueError:
+                text=searchForm.cleaned_data['search']
+                reservations_list = Reservation.objects.filter(Q(client__name__contains=text) | Q(client__surname__contains=text)) 
+    else:
+        reservations_list = Reservation.objects.all()
+        searchForm = SearchForm()
+
+    context = {'reservations_list':reservations_list, 'searchForm':searchForm}
+    return render(request, 'employee_app/reservations.html', RequestContext(request, context))
 
 
 @login_required(redirect_field_name='/employee/login/')
@@ -192,12 +213,15 @@ class LoginForm(forms.Form):
     username = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
 
+class SearchForm(forms.Form):
+    search = forms.CharField(required=False)
+
 
 class MovieFormEdit(ModelForm):
     delete = BooleanField(required=False)
     class Meta:
         model = Movie
-        fields = []
+        fields = ['title', 'length', 'minimal_age', 'genre']
 
 
 class MovieFormAdd(ModelForm):

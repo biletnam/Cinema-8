@@ -1,0 +1,15 @@
+{% if projections_list %}
+    <table>
+    {% for p in projections_list %}
+        <tr>
+            <td><a href="{% url 'seats_view' p.id %}">{{ p.date_time }}</a></td>
+            <td>{{p.room}}</td>
+            <td>{{p.audio_language}}</td>
+            <td>{{p.subtitles_language}}</td>
+            <td>{{p.ticket_price}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <div>No projections are available.</div>
+{% endif %}

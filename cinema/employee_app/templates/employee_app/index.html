@@ -5,7 +5,7 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>No pages are available.</p>
+    <div>No pages are available.</div>
 {% endif %}
 
-<a href="{% url 'logout_page' %}">logout</a>
+<div><a href="{% url 'logout_page' %}">logout</a></div>

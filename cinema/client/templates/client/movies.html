@@ -2,7 +2,7 @@
     <table>
     {% for m in movies_list %}
         <tr>
-            <td><a href="{% url 'edit_movie' m.id %}">{{ m.title }}</a></td>
+            <td><a href="{% url 'projections_view' m.id %}">{{ m.title }}</a></td>
             <td>{{m.length}}</td>
             <td>{{m.genre}}</td>
             <td>{{m.minimal_age}}</td>
@@ -12,6 +12,3 @@
 {% else %}
     <div>No movies are available.</div>
 {% endif %}
-
-<div><a href="{% url 'add_movie' %}">Add film</a></divcs>
-
