@@ -28,7 +28,7 @@ class Room(models.Model):
 	def __unicode__(self):
 		return "room " + str(self.room_number)
 
-class Projection(models.Model): #chack na dacie czy jest > now
+class Projection(models.Model): #check na dacie czy jest > now
 	movie = models.ForeignKey(Movie)
 	room = models.ForeignKey(Room)
 	date_time = models.DateTimeField()
