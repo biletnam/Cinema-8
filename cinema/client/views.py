@@ -6,6 +6,7 @@ from django import forms
 from django.forms import ModelForm, BooleanField, MultipleChoiceField
 from django.forms.models import modelform_factory, modelformset_factory
 from django.db import transaction, IntegrityError
+import datetime
 
 
 def movies_view(request):
@@ -15,7 +16,7 @@ def movies_view(request):
 
 
 def projections_view(request, movie_id):
-    projections_list = Projection.objects.filter(movie_id = movie_id)
+    projections_list = Projection.objects.filter(movie_id=movie_id, date_time__gt=datetime.datetime.now())
     context = {'projections_list':projections_list}
     return render(request, 'client/projections.html', context)
 

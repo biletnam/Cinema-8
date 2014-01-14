@@ -10,6 +10,8 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
+
 
 def login_page(request):
     if request.method == 'POST':
@@ -221,7 +223,8 @@ class MovieFormEdit(ModelForm):
     delete = BooleanField(required=False)
     class Meta:
         model = Movie
-        fields = ['title', 'length', 'minimal_age', 'genre']
+        fields = ['length', 'minimal_age', 'genre']
+
 
 
 class MovieFormAdd(ModelForm):
@@ -234,6 +237,10 @@ class ProjectionForm(ModelForm):
     class Meta:
         model = Projection
         fields = ['room', 'date_time', 'ticket_price', 'audio_language', 'subtitles_language']
+
+    def __init__(self, *args, **kwargs):
+        super(ProjectionForm,self).__init__(*args, **kwargs)
+        self.fields['room'].queryset = Room.objects.filter(status='Open')
 
 class RoomFormAdd(ModelForm):
     class Meta:

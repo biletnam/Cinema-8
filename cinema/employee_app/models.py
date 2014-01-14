@@ -1,6 +1,11 @@
 from django.db import models
+import datetime
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 # Create your models here.
+
+
 
 class Client(models.Model):
 	name = models.CharField(max_length=20)
@@ -28,7 +33,7 @@ class Room(models.Model):
 	def __unicode__(self):
 		return "room " + str(self.room_number)
 
-class Projection(models.Model): #check na dacie czy jest > now
+class Projection(models.Model):
 	movie = models.ForeignKey(Movie)
 	room = models.ForeignKey(Room)
 	date_time = models.DateTimeField()
@@ -53,4 +58,6 @@ class Reservation(models.Model):
 
 	def __unicode__(self):
 		return "Name: " + str(self.client) + ", Seat: " + str(self.seat_number) + ", Projection: " + str(self.projection)
+
+
 
