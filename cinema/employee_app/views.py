@@ -178,8 +178,11 @@ def reservations(request):
                 except Reservation.DoesNotExist:
                     reservations_list = Reservation.objects.all()
             except ValueError:
-                text=searchForm.cleaned_data['search']
-                reservations_list = Reservation.objects.filter(Q(client__name__contains=text) | Q(client__surname__contains=text)) 
+                text = searchForm.cleaned_data['search']
+                if text != "":
+                    reservations_list = Reservation.objects.filter(Q(client__name__icontains=text) | Q(client__surname__icontains=text)) 
+                else:
+                    reservations_list = Reservation.objects.all()
     else:
         reservations_list = Reservation.objects.all()
         searchForm = SearchForm()

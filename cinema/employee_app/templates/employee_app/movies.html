@@ -1,11 +1,26 @@
+<div>
+    <a href="{% url 'index' %}" style="padding:10"> start </a>
+    <a href="{% url 'rooms' %}" style="padding:10"> rooms </a>
+    <a href="{% url 'reservations' %}" style="padding:10"> reservations </a>
+</div>
+
+
+<div style="padding:10"><h1>Movies</h1></div>
+
 {% if movies_list %}
-    <table>
+    <table style="padding:10">
+        <tr>
+            <td style="padding:5"><b>Title</b></td>
+            <td style="padding:5"><b>Length (minutes)</b></td>
+            <td style="padding:5"><b>Genre</b></td>
+            <td style="padding:5"><b>Minimal age</b></td>
+        </tr></b>
     {% for m in movies_list %}
         <tr>
-            <td><a href="{% url 'edit_movie' m.id %}">{{ m.title }}</a></td>
-            <td>{{m.length}}</td>
-            <td>{{m.genre}}</td>
-            <td>{{m.minimal_age}}</td>
+            <td style="padding:7"><a href="{% url 'edit_movie' m.id %}">{{ m.title }}</a></td>
+            <td style="padding:7">{{m.length}}</td>
+            <td style="padding:7">{{m.genre}}</td>
+            <td style="padding:7">{{m.minimal_age}}</td>
         </tr>
     {% endfor %}
     </table>
@@ -13,5 +28,5 @@
     <div>No movies are available.</div>
 {% endif %}
 
-<div><a href="{% url 'add_movie' %}">Add film</a></divcs>
+<div style="padding:10"><a href="{% url 'add_movie' %}">Add movie</a></div>
 

@@ -1,11 +1,19 @@
+<div style="padding:10"><h1>Movies</h1></div>
+
 {% if movies_list %}
-    <table>
+    <table style="padding:10">
+        <tr>
+            <td style="padding:5"><b>Title</b></td>
+            <td style="padding:5"><b>Length (minutes)</b></td>
+            <td style="padding:5"><b>Genre</b></td>
+            <td style="padding:5"><b>Minimal age</b></td>
+        </tr></b>
     {% for m in movies_list %}
         <tr>
-            <td><a href="{% url 'projections_view' m.id %}">{{ m.title }}</a></td>
-            <td>{{m.length}}</td>
-            <td>{{m.genre}}</td>
-            <td>{{m.minimal_age}}</td>
+            <td style="padding:7"><a href="{% url 'projections_view' m.id %}">{{ m.title }}</a></td>
+            <td style="padding:7">{{m.length}}</td>
+            <td style="padding:7">{{m.genre}}</td>
+            <td style="padding:7">{{m.minimal_age}}</td>
         </tr>
     {% endfor %}
     </table>

@@ -1,5 +1,7 @@
+<h1>Employee App login page</h1>
+<div style="padding:5">Please log in to manage this cinema</div>
 <form action="" method="post">{% csrf_token %}
-		<div>{% include "employee_app/form.html"  with form=form %}
+		<div style="padding:5">{% include "employee_app/form.html"  with form=form %}
     	<input type="submit" value="Login" /></div>
 </form>
 

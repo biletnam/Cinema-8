@@ -1,9 +1,13 @@
+<div>
+    <a href="{% url 'movies_view' %}" style="padding:10"> movies </a>
+</div>
+<h2>Projections</h2>
 	<form action="" method="post">{% csrf_token %}
 	<div>	
 		{% include "client/form.html" with form=form %}
 
 			<label for="seats_num">Seats numbers</label>
-			<select id="seats_nums" name="seats_nums" multiple="multiple">
+			<select id="seats_nums" name="seats_nums" multiple="multiple" size="10" required>
 			{% for c in choices %}
 				<option value="{{c}}">{{c}}</option>
 			{% endfor %}

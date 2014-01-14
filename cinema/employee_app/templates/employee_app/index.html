@@ -1,11 +1,10 @@
+<div style="padding:5"><a href="{% url 'logout_page' %}">logout</a></div>
+<h1> Employee App </h1>
+
 {% if pages %}
-    <ul>
     {% for k, v in pages.iteritems %}
-        <li><a href="{% url v %}">{{ k }}</a></li>
+        <div style="padding:5"><a href="{% url v %}">{{ k }}</a></div>
     {% endfor %}
-    </ul>
 {% else %}
     <div>No pages are available.</div>
 {% endif %}
-
-<div><a href="{% url 'logout_page' %}">logout</a></div>

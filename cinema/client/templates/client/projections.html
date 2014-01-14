@@ -1,12 +1,24 @@
+<div>
+    <a href="{% url 'movies_view' %}" style="padding:10"> movies </a>
+</div>
+<h2>Projections</h2>
+
 {% if projections_list %}
     <table>
+         <tr>
+            <td style="padding:5"><b> Date / Time</b></a></td>
+            <td style="padding:5"><b> Room</b></td>
+            <td style="padding:5"><b> Audio language</b></td>
+            <td style="padding:5"><b> Subtitles language</b></td>
+            <td style="padding:5"><b> Ticket price</b></td>
+        </tr>
     {% for p in projections_list %}
         <tr>
-            <td><a href="{% url 'seats_view' p.id %}">{{ p.date_time }}</a></td>
-            <td>{{p.room}}</td>
-            <td>{{p.audio_language}}</td>
-            <td>{{p.subtitles_language}}</td>
-            <td>{{p.ticket_price}}</td>
+            <td style="padding:5"><a href="{% url 'seats_view' p.id %}">{{ p.date_time }}</a></td>
+            <td style="padding:5">{{p.room}}</td>
+            <td style="padding:5">{{p.audio_language}}</td>
+            <td style="padding:5">{{p.subtitles_language}}</td>
+            <td style="padding:5">{{p.ticket_price}}</td>
         </tr>
     {% endfor %}
     </table>

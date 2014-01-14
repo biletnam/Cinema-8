@@ -1,10 +1,22 @@
+<div>
+    <a href="{% url 'index' %}" style="padding:10"> start </a>
+    <a href="{% url 'movies' %}" style="padding:10"> movies </a>
+    <a href="{% url 'reservations' %}" style="padding:10"> reservations </a>
+</div>
+
+<div style="padding:10"><h1>Rooms</h1></div>
 {% if rooms_list %}
     <table>
+        <tr>
+            <td style="padding:5"><b>Room number</b></td>
+            <td style="padding:5"><b>Seats number</b></td>
+            <td style="padding:5"><b>Status</b></td>
+        </tr>
     {% for r in rooms_list %}  
         <tr>
-            <td><a href="{% url 'edit_room' r.room_number %}"> room {{r.room_number}}</a></td>
-            <td>{{r.seats_number}}</td>
-            <td>{{r.status}}</td>
+            <td style="padding:5"><a href="{% url 'edit_room' r.room_number %}"> room {{r.room_number}}</a></td>
+            <td style="padding:5">{{r.seats_number}}</td>
+            <td style="padding:5">{{r.status}}</td>
         </tr>
     {% endfor %}
     </table>
@@ -12,5 +24,5 @@
     <div>No rooms are available.</div>
 {% endif %}
 
-<div><a href="{% url 'add_room' %}">Add room</a></div>
+<div style="padding:10"><a href="{% url 'add_room' %}">Add room</a></div>
 

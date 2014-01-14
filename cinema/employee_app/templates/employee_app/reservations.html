@@ -1,7 +1,12 @@
+<div>
+    <a href="{% url 'index' %}" style="padding:10"> start </a>
+    <a href="{% url 'movies' %}" style="padding:10"> movies </a>
+    <a href="{% url 'rooms' %}" style="padding:10"> rooms </a>
+</div>
 
 {% if reservations_list %}
 
-	<form action="" method="post">{% csrf_token %}
+	<form style="padding:5" action="" method="post">{% csrf_token %}
 		{% include "employee_app/form.html"  with form=searchForm %}
 		<input type="submit" value="Go" />
 	</form>
@@ -9,12 +14,12 @@
     <table>
     {% for r in reservations_list %}
         <tr>
-            <td><a href="{% url 'view_reservation' r.id %}">{{ r.id }}</a></td>
-            <td>{{r.client}}</td>
+            <td style="padding:5"><a href="{% url 'view_reservation' r.id %}">{{ r.id }}</a></td>
+            <td style="padding:5">{{r.client}}</td>
         </tr>
     {% endfor %}
     </table>
 {% else %}
-    <div>No reservations are available.</div>
+    <div style="padding:10"><h2>No reservations are available.</h2></div>
 {% endif %}
 

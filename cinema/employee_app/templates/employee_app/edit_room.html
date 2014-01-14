@@ -1,7 +1,15 @@
+<div>
+    <a href="{% url 'index' %}" style="padding:10"> start </a>
+    <a href="{% url 'movies' %}" style="padding:10"> movies </a>
+    <a href="{% url 'rooms' %}" style="padding:10"> rooms </a>
+    <a href="{% url 'reservations' %}" style="padding:10"> reservations </a>
+</div>
+
 {% if id > 0 %}
-	<div>Room {{id}}</div>
+	<div><h2>Room {{id}}<h2></div>
 	<form action={% url 'edit_room' id %} method="post">{% csrf_token %}	
 {% else %}
+	<div><h2>Add room<h2></div>
 	<form action={% url 'add_room' %} method="post">{% csrf_token %}
 {% endif %}
 		<div>{% include "employee_app/form.html"  with form=roomForm %}		

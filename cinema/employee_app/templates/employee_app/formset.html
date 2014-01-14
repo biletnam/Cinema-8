@@ -2,13 +2,11 @@
 <table>
 {% for form in formset %}
     <tr>{% for field in form %}
-    	<td>
-	    	{% if field.label_tag == "Id:" %}	
-	    		{{field.as_hidden}} aaaaa
-	    	{% else %}
-	        	{{ field.label_tag }} {{ field }}
+    	<td style="padding:5">
+	    	{% ifnotequal field.label_tag "Id:" %}	
+	    		{{ field.label_tag }} {{ field }}
 	        	{{ field.errors }}
-	        {% endif %}
+	        {% endifnotequal %}
 	    </td>
     {% endfor %}</tr>
 {% endfor %}</table>
