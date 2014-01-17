@@ -58,23 +58,30 @@ def movies(request):
 def edit_movie(request, movie_id):
     ProjectionsFormSet = modelformset_factory(Projection, form=ProjectionForm, extra=6, can_delete=True)
     movie = Movie.objects.get(pk=movie_id)
+    error_message = ""
+
     if request.method == 'POST':
         movieForm = MovieFormEdit(request.POST)
         projectionsForms = ProjectionsFormSet(request.POST)
         
         if movieForm.is_valid() and projectionsForms.is_valid():
-            
-            if( movieForm.cleaned_data['delete'] ):
-                with transaction.atomic():
-                    movie.delete()
-            else:    
-                with transaction.atomic():
-                    projections = projectionsForms.save(commit=False)
-                    for p in projections:
-                        p.movie_id = movie.id
-                        p.save()
+            try:
 
-            return HttpResponseRedirect('/employee/movies/')
+                if( movieForm.cleaned_data['delete'] ):
+                    with transaction.atomic():
+                        movie.delete()
+                else:    
+                    with transaction.atomic():
+                        projections = projectionsForms.save(commit=False)
+                        for p in projections:
+                            p.movie_id = movie.id
+                            p.save()
+
+                return HttpResponseRedirect('/employee/movies/')
+            
+            except:
+                error_message = "Given date of projection is in conflict with other projection. Please type other date."
+
     else:
         movieForm = MovieFormEdit(instance = Movie.objects.get(pk=movie_id))
         projectionsForms = ProjectionsFormSet(queryset=Projection.objects.filter(movie_id=movie_id))
@@ -82,33 +89,36 @@ def edit_movie(request, movie_id):
     for k,v in movieForm.fields.iteritems():
         v.widget.attrs['readonly'] = True
     
-    return render(request, 'employee_app/edit_movie.html', RequestContext(request, {'movieForm':movieForm, 'id':movie_id, 'projectionsForms':projectionsForms, 'movie':movie}))
+    return render(request, 'employee_app/edit_movie.html', RequestContext(request, {'movieForm':movieForm, 'id':movie_id, 'projectionsForms':projectionsForms, 'movie':movie, 'error_message':error_message}))
 
 
 @login_required(redirect_field_name='/employee/login/')
 def add_movie(request):
     ProjectionsFormSet = modelformset_factory(Projection, form=ProjectionForm, extra=6)
+    error_message = ""
     if request.method == 'POST':
         
         movieForm = MovieFormAdd(request.POST)
         projectionsForms = ProjectionsFormSet(request.POST)
         
         if movieForm.is_valid() and projectionsForms.is_valid():
-            
-            with transaction.atomic():
-                movie = movieForm.save(commit=False) 
-                projections = projectionsForms.save(commit=False)
-                movie.save()
-                for p in projections:
-                    p.movie_id = movie.id
-                    p.save()
+            try:
+                with transaction.atomic():
+                    movie = movieForm.save(commit=False) 
+                    projections = projectionsForms.save(commit=False)
+                    movie.save()
+                    for p in projections:
+                        p.movie_id = movie.id
+                        p.save()
 
-            return HttpResponseRedirect('/employee/movies/')
+                return HttpResponseRedirect('/employee/movies/')
+            except:
+                error_message = "Given date of projection is in conflict with other projection. Please type other date."
     else:
         movieForm = MovieFormAdd()
         projectionsForms = ProjectionsFormSet(queryset=Projection.objects.none())
 
-    return render(request, 'employee_app/edit_movie.html', RequestContext(request, {'movieForm':movieForm, 'projectionsForms':projectionsForms}))
+    return render(request, 'employee_app/edit_movie.html', RequestContext(request, {'movieForm':movieForm, 'projectionsForms':projectionsForms, "error_message":error_message}))
 
 
 

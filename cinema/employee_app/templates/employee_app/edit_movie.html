@@ -15,6 +15,7 @@
 {% endif %}
 		{% include "employee_app/form.html"  with form=movieForm %}
 		<div style="padding:10"><b>Projections:</b></div>
+		<div style="padding:10">{{error_message}}</div>
 		{% include "employee_app/formset.html"  with formset=projectionsForms %}
     	<p><input type="submit" value="Save" /></p>
 	</form>
